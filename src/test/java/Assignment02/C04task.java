@@ -40,6 +40,11 @@ public class C04task {
 
     @Test
     void test02() {
+        // Navigate Google → YouTube → LinkedIn
+        driver.navigate().to("https://www.google.com");
+        driver.navigate().to("https://www.youtube.com");
+        driver.navigate().to("https://www.linkedin.com");
+
 
         //navigate back twice and assert the URL of Google
         driver.navigate().back();
