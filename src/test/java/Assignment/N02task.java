@@ -15,10 +15,10 @@ public class N02task {
         String title = driver2.getTitle();
         System.out.println("Title Page is "+ title);
 
-        if ( title.equals("video")) {
+        if ( title.toLowerCase().contains("video")) {
             System.out.println("Correct Title contain 'video'");
         } else {
-            System.out.println("Filed: Title not contains 'video'");
+            System.out.println("Filed Title not contains 'video'");
         }
 
         // Close the driver
