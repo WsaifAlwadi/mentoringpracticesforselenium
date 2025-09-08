@@ -1,4 +1,4 @@
-package Assignment02;
+package Day02;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
