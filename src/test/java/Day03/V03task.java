@@ -1,5 +1,6 @@
 package Day03;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -8,33 +9,70 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class V03task {
+import java.time.Duration;
 
+public class V03task {
     static WebDriver driver;
-//Movies test code
+    static String url= "https://opensource-demo.orangehrmlive.com/";
+    String userName ="Ahmad";
+    String userPassword ="0987Ah";
+
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://www.google.com");
-    }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        // Navigate to: https://opensource-demo.orangehrmlive.com/
+        driver.navigate().to(url);
 
+    }
+     @Test
+     void absoltuXpathTest() {
+         // TODO: Locate username & password & log in  using absolut XPath
+      By usernameAbsXpath = By.xpath("/html/body/div/div/div/div/div/div[2]/div[2]/form/div[1]/div/div[2]/input");
+      By passwordAbsXpath = By.xpath("/html/body/div/div/div/div/div/div[2]/div[2]/form/div[2]/div/div[2]/input");
+      By loginAbsXpath = By.xpath("/html/body/div/div/div/div/div/div[2]/div[2]/form/div[3]/button");
+
+         WebElement username1 =driver.findElement( usernameAbsXpath);
+         WebElement password1 =driver.findElement(passwordAbsXpath );
+         WebElement login1 =driver.findElement(loginAbsXpath );
+
+         Assertions.assertTrue(username1.isDisplayed());
+         Assertions.assertTrue(password1.isDisplayed());
+         Assertions.assertTrue(login1.isDisplayed());
+         //TODO: Test both approaches work
+         username1.sendKeys(userName);
+         password1.sendKeys(userPassword);
+         login1.click();
+     }
     @Test
-    public void test01() {
+    void relativeXpathTest() {
+        driver.get(url);
+        // TODO: Locate username & password & log in  using relative XPath
+        By userNameRlatXpath = By.xpath("//input[@name='username']");
+        By passwordRlatXpath = By.xpath("//input[@name='password']");
+        By loginButRelaXpath = By.xpath("//button[@type='submit']");
 
-        String[] movies = {"Green Mile", "Premonition", "The Curious Case of Benjamin Button"};
-        for (String movie : movies) {
-            WebElement searchBox = driver.findElement(By.name("q"));
-            searchBox.clear();
-            searchBox.sendKeys(movie);
-            searchBox.sendKeys(Keys.ENTER);
-            System.out.println("The title after search " + driver.getTitle());
-            driver.navigate().back();
-        }
+      WebElement username1 =driver.findElement(userNameRlatXpath );
+      WebElement password1 =driver.findElement(passwordRlatXpath );
+      WebElement login1 =driver.findElement(loginButRelaXpath );
+
+        Assertions.assertTrue(username1.isDisplayed());
+        Assertions.assertTrue(password1.isDisplayed());
+        Assertions.assertTrue(login1.isDisplayed());
+        //TODO: Test both approaches work
+        username1.sendKeys(userName);
+        password1.sendKeys(userPassword);
+         login1.click();
+
     }
-
     @AfterAll
-    public static void tearDown() {
+    static void tearDown() {
         driver.quit();
     }
-}
+
+
+    }
+
+
+
